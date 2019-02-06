@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>素数JavaScript</title>
+</head>
+<body>
+
+<button onclick="StartCal()">素数チェックを開始</button>
+
+</body>
+ 
+<script>
+ 
+
+ 
+ class CalSosu{
+ 
+	constructor(cknumb){
+		this.cknumb = cknumb;
+	}
+
+	getNum(){
+		var ans;
+		
+		if(this.cknumb < 2 || 100< this.cknumb || isNaN(this.cknumb)) //判定2～100でなければ失敗フラグ、文字の場合も同様
+		{
+			ans = 1;	//2~100以外であるためのフラグ値を返す
+			return ans;
+		}
+		else	//素数判定
+		{
+			var count = 0; //素数判定カウンター
+
+			for(var i = 1; i <= this.cknumb; i++){
+				if(this.cknumb%i == 0)	//割り切れたらカウントを++
+				{
+					count++;
+				}
+			}
+			
+			if(count == 2)	//１と入力数のみで割れた場合カウントは２
+			{
+				ans = "素数です";
+				return ans;
+			}
+			else
+			{
+				ans = "素数ではありません";
+				return ans;
+			}
+		}
+	}
+	
+	Inpsosu(){
+		var sosu = prompt("素数を確認します。\n半角で2~100の数値を入れてください");
+		console.log(sosu);	//チェック用コンソール（消してもOK）
+		if(sosu !== null)	//最初にキャンセルの場合は処理終了
+		{
+			var result = new CalSosu(sosu);
+			var resosu　;
+			
+			if(result.getNum() === 1)	//2~100以外が入力された場合の結果表示
+			{
+				resosu = confirm("半角で値が2~100を入れてください\n 続けて数値を入力しますか？");
+				if(resosu === true)
+				{
+					var start = new CalSosu();
+					start.Inpsosu();
+				}
+			}else	//素数の判定結果表示
+			{
+				resosu = confirm(result.cknumb + "は" + result.getNum()+ "\n 続けて数値を入力しますか？");
+				if(resosu === true)
+				{
+					var start = new CalSosu();
+					start.Inpsosu();
+				}
+			}
+		}
+	}
+ }
+
+function StartCal(){ //初動用関数
+	var start = new CalSosu();
+	start.Inpsosu();
+}
+
+</script>
+</html>
